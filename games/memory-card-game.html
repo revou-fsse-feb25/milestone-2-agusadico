@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game - RevoFun Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+</head>
+<!-- <body class="bg-gradient-to-br from-cyan-400 to-blue-600 min-h-screen"> -->
+    <body class="bg-black text-black bg-[url('../images/bg-gamepage-1a.png')] bg-cover bg-center bg-fixed bg-no-repeat">
+    <!-- Registration Screen -->
+    <div id="registration" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-cyan-400 p-8 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)]">
+            <h2 class="text-2xl font-bold mb-4 text-center">Enter Your Nickname</h2>
+            <input type="text" id="nickname" class="w-full p-2 mb-4 rounded border-4 border-blue-900 focus:outline-none" placeholder="Your nickname">
+            <button id="startGame" class="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">OK</button>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="items-center mb-12">
+            <div class="flex justify-center mb-4">
+                <img src="../images/Logo-revofun.png" alt="RevoFun Logo" class="h-16">
+            </div>
+            <h1 class="text-4xl font-bold text-blue-900 mb-8 text-center">Memory Card Game</h1>
+        </div>
+        <!-- Player Info -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-cyan-500 p-6 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] transition-all">
+                <h2 class="text-2xl font-bold text-white">Player: <span id="playerName" class="text-yellow-300"></span></h2>
+                <p class="text-xl text-white mt-2">Moves: <span id="moves" class="font-bold text-orange-400">0</span></p>
+            </div>
+        </div>
+
+        <!-- Game Grid -->
+        <div id="gameGrid" class="grid grid-cols-4 gap-4 mb-8 max-w-2xl mx-auto"></div>
+
+        <!-- Leaderboard -->
+        <div class="bg-cyan-500 rounded-lg p-6 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] max-w-2xl mx-auto mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-center text-white">Leaderboard</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-4 border-blue-900 text-white">
+                            <th class="py-2 text-center font-bold">Rank</th>
+                            <th class="py-2 text-center font-bold">Player</th>
+                            <th class="py-2 text-center font-bold">Moves</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody" class="text-white"></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Quit Button -->
+        <!-- Navigation Buttons -->
+                <div class="flex justify-center gap-4">
+                    <button onclick="window.location.href='../index.html'" class="bg-orange-500 text-white font-bold py-4 px-8 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-xl">Back to Home</button>
+                    <button id="quitGameBtn" class="bg-red-500 text-white font-bold py-4 px-8 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-xl">Quit Game</button>
+                </div>
+        </div>
+    </div>
+
+    <!-- Continue Dialog -->
+    <div id="continueDialog" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-cyan-400 p-8 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)]">
+            <p id="resultMessage" class="text-xl font-bold mb-4 text-center"></p>
+            <div class="flex space-x-4">
+                <button id="continuePlaying" class="bg-orange-500 text-white font-bold py-2 px-4 rounded border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">Continue</button>
+                <button id="newGame" class="bg-yellow-400 text-black font-bold py-2 px-4 rounded border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quit Dialog -->
+    <div id="quitDialog" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-cyan-400 p-8 rounded-lg border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)]">
+            <p class="text-xl font-bold mb-4 text-center">Are you sure you want to quit?</p>
+            <div class="flex space-x-4">
+                <button id="confirmQuit" class="bg-red-500 text-white font-bold py-2 px-4 rounded border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">Yes</button>
+                <button id="cancelQuit" class="bg-green-500 text-white font-bold py-2 px-4 rounded border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/memory-card-game.js"></script>
+    <!-- Footer -->
+    <footer class="bg-transparent py-4">
+        <div class="text-center">
+            <span class=" text-gray-400">© 2025 RevoFun. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+</html>

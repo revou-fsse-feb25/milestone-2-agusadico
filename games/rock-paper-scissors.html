@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - RevoFun Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+</head>
+<body class="bg-black text-white bg-[url('../images/bg-gamepage-1a.png')] bg-cover bg-center bg-fixed bg-no-repeat">
+    <!-- Game Container -->
+    <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="fixed w-full z-50 top-0 left-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <img src="../images/Logo-revofun.png" alt="RevoFun Logo" class="h-16">
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div id="playerInfo" class="text-white font-bold"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Player Registration -->
+        <div id="registration" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+            <div class="bg-cyan-500 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-8 rounded-lg max-w-md w-full mx-4">
+                <h2 class="text-2xl font-bold mb-4">Enter Your Nickname</h2>
+                <input type="text" id="nickname" class="w-full p-2 rounded bg-cyan-300 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] text-black mb-4 placeholder-cyan-600" placeholder="Your nickname">
+                <button id="startGame" class="w-full bg-orange-500 hover:-translate-y-1 hover:translate-x-1 px-6 py-3 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">Start Game</button>
+            </div>
+        </div>
+
+        <!-- Game Interface -->
+        <div class="flex-1 container mx-auto px-4 py-8">
+            <!-- Score Display -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold mb-4 text-blue-950">Rock Paper Scissors</h1>
+                <div class="flex justify-center gap-8">
+                    <div class="bg-yellow-100 rounded-lg p-4 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] transform transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <p class="text-lg text-blue-900">Player: <span id="playerName">-</span></p>
+                        <p class="text-2xl font-bold text-orange-500">Score: <span id="playerScore">0</span></p>
+                    </div>
+                    <div class="bg-yellow-100 rounded-lg p-4 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] transform transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                        <p class="text-lg text-blue-900">Computer</p>
+                        <p class="text-2xl font-bold text-green-500">Score: <span id="computerScore">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Status -->
+            <div id="gameStatus" class="text-center mb-8">
+                <p class="text-2xl font-bold mb-4">Choose your move!</p>
+                <div id="result" class="text-xl text-white"></div>
+            </div>
+
+            <!-- Choice Buttons -->
+            <div class="flex justify-center gap-4 mb-8">
+                <button class="choice-btn bg-cyan-500 hover:-translate-y-1 hover:translate-x-1 p-6 rounded-lg transition-transform relative border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none" data-choice="rock">
+                    <img src="../images/rock-paper-scissor/rock.png" alt="Rock" class="w-16 h-16 mx-auto">
+                    <span class="block mt-2">Rock</span>
+                </button>
+                <button class="choice-btn bg-cyan-500 hover:-translate-y-1 hover:translate-x-1 p-6 rounded-lg transition-transform relative border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none" data-choice="paper">
+                    <img src="../images/rock-paper-scissor/paper.png" alt="Paper" class="w-16 h-16 mx-auto">
+                    <span class="block mt-2">Paper</span>
+                </button>
+                <button class="choice-btn bg-cyan-500 hover:-translate-y-1 hover:translate-x-1 p-6 rounded-lg transition-transform relative border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] hover:shadow-none" data-choice="scissors">
+                    <img src="../images/rock-paper-scissor/scissors.png" alt="Scissors" class="w-16 h-16 mx-auto">
+                    <span class="block mt-2">Scissors</span>
+                </button>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="max-w-2xl mx-auto">
+                <h3 class="text-2xl font-bold mb-4 text-center">Leaderboard</h3>
+                <div class="bg-cyan-500 rounded-md p-8 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] transform transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-blue-900">
+                                <th class="py-2">Rank</th>
+                                <th class="py-2">Player</th>
+                                <th class="py-2">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <!-- Leaderboard entries will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/rock-paper-scissors.js"></script>
+
+    <!-- Divider -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+        <hr class="border-blue-900 pb-4">
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="flex justify-center mb-4">
+    <button onclick="window.location.href='../index.html'" class="static bottom-8 right-8 bg-orange-500 hover:-translate-y-1 hover:translate-x-1 px-6 py-3 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] flex items-center gap-2">
+        Back to Home
+    </button>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-transparent py-4">
+        <div class="text-center">
+            <span class=" text-gray-400">© 2025 RevoFun. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+</html>

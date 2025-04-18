@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game - RevoFun</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+</head>
+<body class="bg-black text-white bg-[url('../images/bg-gamepage-1a.png')] bg-cover bg-center bg-fixed bg-no-repeat">
+    <!-- Registration Section -->
+    <div id="registration" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+        <div class="bg-cyan-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-12 rounded-lg max-w-md w-full mx-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Enter Your Nickname</h2>
+            <div class="flex flex-col gap-4">
+                <input type="text" id="nickname" class="w-full px-4 py-2 rounded-md text-black border-4 border-blue-900" placeholder="Your nickname...">
+                <button id="startGame" class="bg-orange-500 hover:-translate-y-1 hover:translate-x-1 px-8 py-4 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Section -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Game Header -->
+        <div class="items-center mb-12">
+            <div class="flex justify-center mb-4">
+                <img src="../images/Logo-revofun.png" alt="RevoFun Logo" class="h-16">
+            </div>
+            <h1 class="text-4xl font-bold text-blue-900 mb-8 text-center">Clicker Game</h1>
+        </div>
+        <div class="flex justify-between items-center gap-4 md:gap-8 mb-12">
+            <div class="bg-cyan-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-6 rounded-xl">
+                <h2 class="text-2xl">Player: <span id="playerName" class="font-bold"></span></h2>
+            </div>
+            <div class="bg-orange-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-6 rounded-xl">
+                <h2 class="text-2xl">Time: <span id="timer" class="font-bold">30</span>s</h2>
+            </div>
+            <div class="bg-yellow-400 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-6 rounded-xl">
+                <h2 class="text-2xl">Score: <span id="score" class="font-bold">0</span></h2>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="flex flex-col items-center gap-8">
+            <!-- Click Button Area -->
+            <div class="w-full max-w-4xl flex justify-center">
+                <button id="clickButton" class="w-72 h-72 hover:-translate-y-1 hover:translate-x-1 transition-transform relative disabled:opacity-50 disabled:cursor-not-allowed">
+                    <img src="../images/clicker-game-button-design.png" alt="Click Button" class="w-full h-full object-contain">
+                    <!-- <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-white drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] z-10">CLICK!</span> -->
+                </button>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="w-full max-w-2xl bg-cyan-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-6 rounded-lg">
+                <h2 class="text-3xl font-bold mb-6 text-center">Leaderboard</h2>
+                <table class="w-full">
+                    <thead class="border-b-4 border-blue-900">
+                        <tr>
+                            <th class="py-3 text-xl">Rank</th>
+                            <th class="py-3 text-xl">Player</th>
+                            <th class="py-3 text-xl">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody" class="text-lg">
+                        <!-- Leaderboard entries will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-4 mb-4">
+        <button onclick="window.location.href='../index.html'" class="static bottom-8 right-8 bg-orange-500 hover:-translate-y-1 hover:translate-x-1 px-6 py-3 rounded-md text-white font-bold transition-transform relative border-4 border-blue-950 shadow-[4px_4px_0px_0px_rgba(23,37,84,1)] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] flex items-center gap-2">Back to Home</button>
+    </div>
+    <!-- Button Quit Game -->
+    <div class="fixed bottom-8 right-8">
+        <button id="quitGameBtn" class="bg-red-500 hover:-translate-y-1 hover:translate-x-1 px-6 py-3 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">
+            Quit Game
+        </button>
+    </div>
+    
+
+    <!-- Quit Confirmation Dialog -->
+    <div id="quitDialog" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50 hidden">
+        <div class="bg-cyan-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-12 rounded-lg max-w-2xl w-full mx-4">
+            <h2 class="text-2xl font-bold mb-8 text-center">Are you sure you want to quit?</h2>
+            <div class="flex gap-8 px-8">
+                <button id="confirmQuit" class="flex-1 bg-red-500 hover:-translate-y-1 hover:translate-x-1 px-8 py-4 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">Yes, Quit</button>
+                <button id="cancelQuit" class="flex-1 bg-green-500 hover:-translate-y-1 hover:translate-x-1 px-8 py-4 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">No, Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue Dialog -->
+    <div id="continueDialog" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50 hidden">
+        <div class="bg-cyan-500 border-4 border-blue-900 shadow-[8px_8px_0px_0px_rgba(30,58,138,1)] p-12 rounded-lg max-w-2xl w-full mx-4">
+            <div id="resultMessage" class="text-2xl font-bold mb-16 text-center leading-relaxed"></div>
+            <h2 class="text-2xl font-bold mb-8 text-center">Would you like to continue?</h2>
+            <div class="flex gap-8 px-8">
+                <button id="continuePlaying" class="flex-1 bg-orange-500 hover:-translate-y-1 hover:translate-x-1 px-8 py-4 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">Continue</button>
+                <button id="newGame" class="flex-1 bg-green-500 hover:-translate-y-1 hover:translate-x-1 px-8 py-4 rounded-md text-white font-bold transition-transform relative border-4 border-blue-900 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] hover:shadow-none">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/clicker-game.js"></script>
+
+    <!-- Footer -->
+    <footer class="bg-transparent py-4">
+        <div class="text-center">
+            <span class=" text-gray-400">© 2025 RevoFun. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+</html>
