@@ -8,14 +8,14 @@ RevoFun Games is a web-based gaming platform featuring multiple casual games wit
 
 ## Project Structure
 
-revofun-games/
-├── index.html         # Home page
-├── components/        # Common footer for used across all pages
-├── css/               # Styling files
-├── js/                # JavaScript implementations
-├── games/             # Individual game pages
-└── images/            # Game assets
-
+| Directory/File | Description |
+|---------------|-------------|
+| `index.html`  | Home page with game selection and platform introduction |
+| `components/` | Common components like footer used across all pages |
+| `css/`        | Styling files including animations and custom styles |
+| `js/`         | JavaScript implementations for game logic and interactions |
+| `games/`      | Individual game pages and their specific assets |
+| `images/`     | Game assets, icons, and visual elements |
 
 ## Games Available
 
