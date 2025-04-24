@@ -11,7 +11,6 @@ RevoFun Games is a web-based gaming platform featuring multiple casual games wit
 | Directory/File | Description |
 |---------------|-------------|
 | `index.html`  | Home page with game selection and platform introduction |
-| `components/` | Common components like footer used across all pages |
 | `css/`        | Styling files including animations and custom styles |
 | `js/`         | JavaScript implementations for game logic and interactions |
 | `games/`      | Individual game pages and their specific assets |

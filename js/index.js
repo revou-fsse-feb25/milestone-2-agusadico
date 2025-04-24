@@ -42,30 +42,6 @@ function toggleAccordion(id) {
     button.querySelector('span').textContent = content.classList.contains('hidden') ? '+' : '-';
 }
 
-//Footer on All Pages
-// Update footer fetch to use relative path for GitHub Pages
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('components/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading footer:', error);
-            // Fallback footer if fetch fails
-            document.getElementById('footer-placeholder').innerHTML = `
-                <footer class="bg-blue-950 text-white py-8">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="text-center">
-                            <p>&copy; 2024 RevoFun Gaming. All rights reserved.</p>
-                        </div>
-                    </div>
-                </footer>
-            `;
-        });
-});
-
-
 function toggleMenu() {
     const mobileMenu = document.getElementById('mobileMenu');
     if (mobileMenu.classList.contains('hidden')) {
